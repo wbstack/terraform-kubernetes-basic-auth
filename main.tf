@@ -10,7 +10,7 @@ data "external" "htpasswd" {
   }
 }
 
-resource "kubernetes_secret" "kibana-basic-auth" {
+resource "kubernetes_secret" "basic-auth" {
   metadata {
     name      = var.name 
     namespace = var.namespace
