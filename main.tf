@@ -1,5 +1,5 @@
 resource "random_string" "password" {
-  length = 48
+  length  = 48
   special = true
 }
 
@@ -12,13 +12,14 @@ data "external" "htpasswd" {
 
 resource "kubernetes_secret" "basic-auth" {
   metadata {
-    name      = var.name 
+    name      = var.name
     namespace = var.namespace
   }
   data = {
     auth = data.external.htpasswd.result.file
   }
   lifecycle {
-   ignore_changes = [data]
+    ignore_changes = [data]
   }
 }
+
