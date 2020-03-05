@@ -1,13 +1,6 @@
-resource "random_string" "password" {
+resource "random_password" "password" {
   length  = 48
-  special = true
-}
-
-data "external" "htpasswd" {
-  program = ["/bin/sh", "${path.module}/htpasswd.sh"]
-  query = {
-    pass = random_string.password.result
-  }
+  special = false
 }
 
 resource "kubernetes_secret" "basic-auth" {
@@ -16,7 +9,7 @@ resource "kubernetes_secret" "basic-auth" {
     namespace = var.namespace
   }
   data = {
-    auth = data.external.htpasswd.result.file
+    auth = "${var.username}:${bcrypt(random_password.password.result, 10)}"
   }
   lifecycle {
     ignore_changes = [data]

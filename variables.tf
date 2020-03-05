@@ -8,3 +8,9 @@ variable "name" {
   description = "Name of the basic auth secret to create."
 }
 
+variable "username" {
+  type        = string
+  default     = "admin"
+  description = "Username to use for basic auth"
+}
+

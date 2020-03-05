@@ -1,5 +1,5 @@
 output "password" {
-  description = "The htpasswd-encoded basic auth password."
-  value       = random_string.password.result
+  description = "The randomly-generated basic auth password."
+  value       = random_password.password.result
 }
 
